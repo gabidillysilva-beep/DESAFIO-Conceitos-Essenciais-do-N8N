@@ -51,3 +51,13 @@ As comparações devem respeitar exatamente o texto e a capitalização definido
 ## Organização
 
 Cada pasta contém o enunciado completo do desafio correspondente. Consulte os links acima para ver os formatos detalhados de entrada e saída e os exemplos.
+
+---
+
+Desenvolvido por **Gabriela Dilly Silva**.
+
+[Ver enunciado completo](./desafio-03-Validador-de-Status-n8n-no-Banco-Digital/desafio-03.md)
+
+## Organização
+
+Cada pasta contém o enunciado completo do desafio correspondente. Consulte os links acima para ver os formatos detalhados de entrada e saída e os exemplos.
