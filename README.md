@@ -1,38 +1,53 @@
-# Desafios - Conceitos Essenciais do N8N
+# Desafios — Conceitos Essenciais do n8n
 
-Repositório dedicado aos desafios de lógica e automação com foco em ferramentas low-code, no-code e inteligência artificial.
+Repositório dedicado a desafios de lógica e automação inspirados em fluxos do n8n e em operações de um banco digital. Esta página reúne uma visão geral dos três desafios; os enunciados completos ficam nas pastas correspondentes.
 
----
+## Desafios
 
-## Desafio Técnico: Validação de Fluxo de Automação
+### 1. Roteamento de solicitações bancárias
 
-### Contexto
-Em um banco digital, a equipe de operações está revisando fluxos simples criados no n8n para treinar novos analistas. Um dos fluxos recebe eventos de transações e decide rapidamente se a automação deve continuar, aguardar revisão humana ou encerrar por erro. Antes de publicar o fluxo em produção, você precisa implementar a mesma regra em código para validar se a lógica básica foi entendida.
+Receba o status de uma solicitação e encaminhe o fluxo:
 
-### Regras
-Leia três informações: o tipo do evento, o status recebido e a etapa atual do fluxo. Seu programa deve retornar uma única mensagem de controle. As regras são:
-1. Se o status for **ERRO**, independentemente dos outros campos, retorne **FALHA**.
-2. Se o tipo for **PIX**, o status for **OK** e a etapa for **validar**, retorne **PROCESSAR**.
-3. Se o tipo for **TED**, o status for **OK** e a etapa for **validar**, retorne **AGENDAR**.
-4. Se a etapa for **revisar**, retorne **ANALISAR**.
-5. Para qualquer outra combinação válida, retorne **IGNORAR**.
+| Status | Resposta |
+| --- | --- |
+| `APROVADO` | `PAGAMENTO` |
+| `PENDENTE` | `ANALISE_MANUAL` |
+| `NEGADO` | `ENCERRAMENTO` |
+| Qualquer outro valor | `ERRO_STATUS` |
 
-O problema envolve comparações simples de strings e prioridade de regras, como em um fluxo inicial do n8n. Considere as palavras exatamente como fornecidas, com letras maiúsculas e minúsculas relevantes.
+O status deve ser comparado exatamente, respeitando as letras maiúsculas.
 
-### Entrada
-A entrada contém três linhas:
-* **Linha 1:** Tipo do evento (podendo ser PIX, TED ou outro texto).
-* **Linha 2:** Status do evento.
-* **Linha 3:** Etapa atual do fluxo.
+[Ver enunciado completo](./desafio-01-fluxo-n8n/desafio-01.md)
 
-### Saída
-Exiba uma única linha com uma das mensagens: `PROCESSAR`, `AGENDAR`, `FALHA`, `ANALISAR` ou `IGNORAR`, conforme as regras descritas.
+### 2. Decisão de status no fluxo
 
-### Exemplos
+Mapeie o estado recebido para a próxima ação do fluxo:
 
-| Entrada | Saída |
-| :--- | :--- |
-| PIX<br>OK<br>validar | `PROCESSAR` |
-| TED<br>OK<br>validar | `AGENDAR` |
-| PIX<br>ERRO<br>validar | `FALHA` |
-| DOC<br>OK<br>revisar | `ANALISAR` |
+| Status | Próxima ação |
+| --- | --- |
+| `START` | `VALIDATE` |
+| `PROCESS` | `SAVE` |
+| `ERROR` | `RETRY` |
+| `END` | `FINISH` |
+| Qualquer outro valor | `INVALID` |
+
+A comparação é exata e diferencia letras maiúsculas de minúsculas.
+
+[Ver enunciado completo](./desafio-02-Decisao-de-Status-no-N8N-Bancario/desafio-02.md)
+
+### 3. Validador de eventos bancários
+
+Leia três informações — tipo do evento, status e etapa atual — e retorne a mensagem de controle conforme estas regras, na ordem indicada:
+
+1. Se o status for `ERRO`, retorne `FALHA`, independentemente dos outros campos.
+2. Para status `OK` e etapa `validar`, tipo `PIX` retorna `PROCESSAR` e tipo `TED` retorna `AGENDAR`.
+3. Se a etapa for `revisar`, retorne `ANALISAR`.
+4. Para qualquer outra combinação, retorne `IGNORAR`.
+
+As comparações devem respeitar exatamente o texto e a capitalização definidos.
+
+[Ver enunciado completo](./desafio-03-Validador-de-Status-n8n-no-Banco-Digital/desafio-03.md)
+
+## Organização
+
+Cada pasta contém o enunciado completo do desafio correspondente. Consulte os links acima para ver os formatos detalhados de entrada e saída e os exemplos.
